@@ -1,6 +1,5 @@
 
 import java.util.Arrays;
-import java.util.Scanner;
 public final class MaxHeap<T>{
     private T[] heap;
     private int lastIndex;
@@ -11,6 +10,15 @@ public final class MaxHeap<T>{
     public MaxHeap(){
         this(DEFAULT_CAPACITY);
     }
+    public MaxHeap(T[] entries){
+        this(entries.length);
+        assert initialized = true;
+        for(int index = 0; index < entries.length; index++)
+            heap[index+1] = entries[index];
+        for(int rootIndex = lastIndex/2; rootIndex > 0; rootIndex--){
+            reheap(rootIndex);
+        }
+    }
     public MaxHeap(int initialCapacity){
         if(initialCapacity<DEFAULT_CAPACITY)
             initialCapacity = DEFAULT_CAPACITY;
@@ -19,12 +27,24 @@ public final class MaxHeap<T>{
         
         @SuppressWarnings("unchecked")
         T[] tempHeap = (T[]) new Comparable[initialCapacity+1];
+        heap = tempHeap;
         lastIndex = 0;
         initialized = true;
     }
 
     public boolean isEmpty(){
         return lastIndex < 1;
+    }
+    public T removeMax(){
+        checkInitialization();
+        T root = null;
+        if(!isEmpty()){
+            root = heap[1];
+            heap[1] = heap[lastIndex];
+            lastIndex--;
+            reheap(1);
+        }
+        return root;
     }
     public T getMax(){
         checkInitialization();
@@ -33,6 +53,27 @@ public final class MaxHeap<T>{
             root = heap[1];
         }
         return root;
+    }
+    public void reheap(int rootIndex){
+        boolean done = false;
+        T orphan = heap[rootIndex];
+        int leftChildIndex = 2 * rootIndex;
+
+        while(!done && (leftChildIndex <= lastIndex)){
+            int largerChildIndex = leftChildIndex;
+            int rightChildIndex = leftChildIndex + 1;
+            if((rightChildIndex <= lastIndex) && ((Comparable) heap[rightChildIndex]).compareTo(heap[largerChildIndex])>0){
+                largerChildIndex = rightChildIndex;
+            }
+            if (((Comparable) orphan).compareTo(heap[largerChildIndex])<0){
+                heap[rootIndex] = heap[largerChildIndex];
+                rootIndex = largerChildIndex;
+                leftChildIndex = 2 * rootIndex;
+            }
+            else
+                done = true;
+        }
+        heap[rootIndex] = orphan;
     }
     public void add(T newEntry){
         checkInitialization();
@@ -45,8 +86,10 @@ public final class MaxHeap<T>{
         }
         heap[newIndex] = newEntry;
         lastIndex++;
-        
+        ensureCapacity();
     }
+
+
     private void ensureCapacity(){
         if(lastIndex >= heap.length -1){
             int newLength = 2 * heap.length;
