@@ -120,4 +120,27 @@ public final class MaxHeap<T extends Comparable<? super T>>
             throw new IllegalStateException("Attempt to create a list whos capacity is above maximum");
         }
     }
+    
+    public int sequentialInsertions(int array[])
+    {
+        int numberOfSwaps = 0;
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+        for (int i = 1; i< array.length+1; i++)
+        {
+            if (array[i]< array[2*i])
+            {
+                maxHeap.add(array[2*1]);
+                numberOfSwaps++;
+            }
+            if (array[i] < array[(2*i)+1])
+            {
+                maxHeap. add(array[(2*i)+1]);
+                numberOfSwaps++;
+            }
+            maxHeap.add(array[i]);
+        }
+        return numberOfSwaps;
+    }
+
+    
 }
