@@ -127,18 +127,19 @@ public final class MaxHeap<T extends Comparable<? super T>>
         MaxHeap<Integer> maxHeap = new MaxHeap<>();
         for (int i = 1; i< array.length+1; i++)
         {
-            if (array[i]< array[2*i])
+            maxHeap.add(array[i]);
+            maxHeap.add(array[2*i]);
+            if (heap[i] < heap[2*i])
             {
                 maxHeap.add(array[2*1]);
                 maxHeap.remove
                 numberOfSwaps++;
             }
-            if (array[i] < array[(2*i)+1])
+            if (heap[i] < heap[(2*i)+1])
             {
                 maxHeap.add(array[(2*i)+1]);
                 numberOfSwaps++;
             }
-            maxHeap.add(array[i]);
         }
         return numberOfSwaps;
     }
