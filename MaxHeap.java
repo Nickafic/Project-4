@@ -1,6 +1,8 @@
 
 import java.util.Arrays;
-public final class MaxHeap<T>{
+public final class MaxHeap<T extends Comparable<? super T>>
+             implements MaxHeapInterface<T>
+{
     private T[] heap;
     private int lastIndex;
     private boolean initialized = false;
