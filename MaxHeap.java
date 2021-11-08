@@ -130,6 +130,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
             if (array[i]< array[2*i])
             {
                 maxHeap.add(array[2*1]);
+                maxHeap.remove
                 numberOfSwaps++;
             }
             if (array[i] < array[(2*i)+1])
