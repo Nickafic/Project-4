@@ -1,5 +1,7 @@
-
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
 public final class MaxHeap<T extends Comparable<? super T>>
              implements MaxHeapInterface<T>
 {
@@ -120,7 +122,19 @@ public final class MaxHeap<T extends Comparable<? super T>>
             throw new IllegalStateException("Attempt to create a list whos capacity is above maximum");
         }
     }
-    
+    public int optimalMethod(String fileName) throws IOException{
+        File inputFile = new File(fileName);
+        Scanner fileScan = new Scanner(inputFile);
+        int numberOfSwaps = 0;
+        while(fileScan.hasNextLine()){
+            heap[++lastIndex] = (T) fileScan.nextLine();
+            ensureCapacity();
+        }
+        for(int rootIndex = lastIndex/2; rootIndex > 0; rootIndex--)
+            reheap(rootIndex);
+        fileScan.close();
+        return 0;
+    }
     public int sequentialInsertions(int array[])
     {
         int numberOfSwaps = 0;
