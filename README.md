@@ -8,4 +8,4 @@ Nicholas Nguyen - Optimal Method
 
 Brianne Guerrero - Sequential Method
 
-George Francis - 
+George Francis - helped debug optimal method
