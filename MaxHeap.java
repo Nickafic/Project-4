@@ -166,6 +166,35 @@ public final class MaxHeap<T extends Comparable<? super T>>
         }
         return numberOfSwaps;
     }
+    
+    /** trying to change the sequentialInsertion method.
+    
+     public int sequentialInsertions( String fileName) throws IOException
+    {
+        File inputFile = new File(fileName);
+        Scanner fileScan = new Scanner(inputFile);
+        int numberOfSwaps = 0;
+
+        for (int i = 1; i< this.getSize()+1; i++)
+        {
+
+            if (heap[i].compareTo(heap[2*i])<0)
+            {
+                this.removeMax();
+                add(heap[i]);
+                numberOfSwaps++;
+            }
+            if (heap[i].compareTo(heap[(2*i)+1])<0)
+            {
+                this.removeMax();
+                add(heap[i]);
+                numberOfSwaps++;
+            }
+        }
+        fileScan.close();
+        return numberOfSwaps;
+    }
+    */
 
     
 }
