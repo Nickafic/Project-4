@@ -149,7 +149,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
         outWrite.close();
         fileScan.close();
     }
-    public void sequentialInsertions(String fileName) throws IOException
+    public int sequentialInsertions(String fileName) throws IOException
     {
         Scanner fileScan = new Scanner(new File(fileName));
         BufferedWriter outWrite = new BufferedWriter(new FileWriter(new File("outputFile.txt")));
@@ -171,6 +171,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
         outWrite.newLine();
         outWrite.close();
         fileScan.close();
+        return 0;
     }
 
     
