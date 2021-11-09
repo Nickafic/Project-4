@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.chrono.ThaiBuddhistChronology;
 import java.util.Arrays;
 import java.util.Scanner;
 public final class MaxHeap<T extends Comparable<? super T>>
@@ -89,6 +90,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
             heap[newIndex] = heap[parentIndex];
             newIndex = parentIndex;
             parentIndex = newIndex / 2;
+            swaps++;
         }
         heap[newIndex] = newEntry;
         lastIndex++;
@@ -124,7 +126,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
             throw new IllegalStateException("Attempt to create a list whos capacity is above maximum");
         }
     }
-    public int optimalMethod(String fileName) throws IOException{
+    public void optimalMethod(String fileName) throws IOException{
         Scanner fileScan = new Scanner(new File(fileName));
         BufferedWriter outWrite = new BufferedWriter(new FileWriter(new File("outputFile.txt")));
         while(fileScan.hasNextLine()){
@@ -141,60 +143,25 @@ public final class MaxHeap<T extends Comparable<? super T>>
         outWrite.newLine();
         outWrite.close();
         fileScan.close();
+    }
+    public int sequentialInsertions(String fileName) throws IOException
+    {
+        Scanner fileScan = new Scanner(new File(fileName));
+        BufferedWriter outWrite = new BufferedWriter(new FileWriter(new File("outputFile.txt")));
+        while (fileScan.hasNextLine())
+        {
+            this.add(fileScan.nextLine());
+        }
+        for(int i=0; i<10; i++){
+            outWrite.write(this.removeMax());
+            outWrite.newLine();
+        }
+        outWrite.write("number of swaps: " + swaps);
+        outWrite.newLine();
+        outWrite.close();
+        fileScan.close();
         return 0;
     }
-    public int sequentialInsertions(int array[])
-    {
-        int numberOfSwaps = 0;
-        MaxHeap<Integer> maxHeap = new MaxHeap<>();
-        for (int i = 1; i< array.length+1; i++)
-        {
-            maxHeap.add(array[i]);
-            maxHeap.add(array[2*i]);
-            if (heap[i] < heap[2*i])
-            {
-                maxHeap.removeMax();
-                maxHeap.add(array[i]);
-                numberOfSwaps++;
-            }
-            if (heap[i] < heap[(2*i)+1])
-            {
-                maxHeap.removeMax();
-                maxHeap.add(heap[i]);
-                numberOfSwaps++;
-            }
-        }
-        return numberOfSwaps;
-    }
-    
-    /** trying to change the sequentialInsertion method.
-    
-     public int sequentialInsertions( String fileName) throws IOException
-    {
-        File inputFile = new File(fileName);
-        Scanner fileScan = new Scanner(inputFile);
-        int numberOfSwaps = 0;
-
-        for (int i = 1; i< this.getSize()+1; i++)
-        {
-
-            if (heap[i].compareTo(heap[2*i])<0)
-            {
-                this.removeMax();
-                add(heap[i]);
-                numberOfSwaps++;
-            }
-            if (heap[i].compareTo(heap[(2*i)+1])<0)
-            {
-                this.removeMax();
-                add(heap[i]);
-                numberOfSwaps++;
-            }
-        }
-        fileScan.close();
-        return numberOfSwaps;
-    }
-    */
 
     
 }
