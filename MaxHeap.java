@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 public final class MaxHeap<T extends Comparable<? super T>>
 {
-    private int swaps;
+    private int swaps = 0;
     private String[] heap;
     private int lastIndex;
     private boolean initialized = false;
@@ -41,7 +41,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
     public boolean isEmpty(){
         return lastIndex < 1;
     }
-    public String removeMax(){
+    public void removeMax(){
         checkInitialization();
         String root = null;
         if(!isEmpty()){
@@ -50,7 +50,6 @@ public final class MaxHeap<T extends Comparable<? super T>>
             lastIndex--;
             reheap(1);
         }
-        return root;
     }
     public String getMax(){
         checkInitialization();
@@ -68,10 +67,10 @@ public final class MaxHeap<T extends Comparable<? super T>>
         while(!done && (leftChildIndex <= lastIndex)){
             int largerChildIndex = leftChildIndex;
             int rightChildIndex = leftChildIndex + 1;
-            if((rightChildIndex <= lastIndex) && (heap[rightChildIndex].compareTo(heap[largerChildIndex])>0)){
+            if((rightChildIndex <= lastIndex) && (Integer.valueOf(heap[rightChildIndex])>Integer.valueOf(heap[largerChildIndex]))){
                 largerChildIndex = rightChildIndex;
             }
-            if (orphan.compareTo(heap[largerChildIndex])<0){
+            if (Integer.valueOf(orphan)<Integer.valueOf(heap[largerChildIndex])){
                 heap[rootIndex] = heap[largerChildIndex];
                 swaps++;
                 rootIndex = largerChildIndex;
@@ -86,7 +85,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
         checkInitialization();
         int newIndex = lastIndex + 1;
         int parentIndex = newIndex/2;
-        while((parentIndex > 0) && (newEntry.compareTo(heap[parentIndex]) > 0)){
+        while((parentIndex > 0) && (Integer.valueOf(newEntry) >Integer.valueOf(heap[parentIndex]))){
             heap[newIndex] = heap[parentIndex];
             newIndex = parentIndex;
             parentIndex = newIndex / 2;
@@ -133,18 +132,24 @@ public final class MaxHeap<T extends Comparable<? super T>>
             heap[++lastIndex] =  fileScan.nextLine();
             ensureCapacity();
         }
-        for(int rootIndex = lastIndex/2; rootIndex > 0; rootIndex--)
+        for(int rootIndex = lastIndex/2; rootIndex > 0; rootIndex--){
             reheap(rootIndex);
-        for(int i=0; i<10; i++){
-            outWrite.write(this.removeMax());
-            outWrite.newLine();
         }
-        outWrite.write("number of swaps: " + swaps);
+        outWrite.write("number of swaps: " + swaps + "\n");
+        for(int i=1; i<=10; i++){
+            outWrite.write(heap[i] + ",");
+        }
         outWrite.newLine();
+        for(int i=1; i<10; i++){
+            this.removeMax();
+        }
+        for(int i=1; i<=10; i++){
+            outWrite.write(heap[i] + ",");
+        }
         outWrite.close();
         fileScan.close();
     }
-    public int sequentialInsertions(String fileName) throws IOException
+    public void sequentialInsertions(String fileName) throws IOException
     {
         Scanner fileScan = new Scanner(new File(fileName));
         BufferedWriter outWrite = new BufferedWriter(new FileWriter(new File("outputFile.txt")));
@@ -152,15 +157,20 @@ public final class MaxHeap<T extends Comparable<? super T>>
         {
             this.add(fileScan.nextLine());
         }
-        for(int i=0; i<10; i++){
-            outWrite.write(this.removeMax());
-            outWrite.newLine();
+        outWrite.write("number of swaps: " + swaps + "\n");
+        for(int i=1; i<=10; i++){
+            outWrite.write(heap[i] + ",");
         }
-        outWrite.write("number of swaps: " + swaps);
+        outWrite.newLine();
+        for(int i=1; i<10; i++){
+            this.removeMax();
+        }
+        for(int i=1; i<=10; i++){
+            outWrite.write(heap[i] + ",");
+        }
         outWrite.newLine();
         outWrite.close();
         fileScan.close();
-        return 0;
     }
 
     
