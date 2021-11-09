@@ -9,3 +9,5 @@ Nicholas Nguyen - Optimal Method
 Brianne Guerrero - Sequential Method
 
 George Francis - helped debug optimal method
+
+Screen Cast: https://youtu.be/ovHcx1Cuzjk
