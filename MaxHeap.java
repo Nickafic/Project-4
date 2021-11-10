@@ -140,7 +140,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
             outWrite.write(heap[i] + ",");
         }
         outWrite.newLine();
-        for(int i=1; i<10; i++){
+        for(int i=1; i<=10; i++){
             this.removeMax();
         }
         for(int i=1; i<=10; i++){
@@ -162,7 +162,7 @@ public final class MaxHeap<T extends Comparable<? super T>>
             outWrite.write(heap[i] + ",");
         }
         outWrite.newLine();
-        for(int i=1; i<10; i++){
+        for(int i=1; i<=10; i++){
             this.removeMax();
         }
         for(int i=1; i<=10; i++){
